@@ -10,11 +10,13 @@
     <sprite>sprites\spr_jump_zombie</sprite>
     <sprite>sprites\spr_right_zombie</sprite>
     <sprite>sprites\spr_die_zombie</sprite>
+    <sprite>sprites\wall</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\obj_zombie</object>
+    <object>objects\obj_wall</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

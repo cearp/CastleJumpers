@@ -8,16 +8,16 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="5" enumb="39">
+    <event eventtype="0" enumb="0">
       <action>
         <libid>1</libid>
-        <id>101</id>
-        <kind>0</kind>
-        <userelative>-1</userelative>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
         <isquestion>0</isquestion>
         <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_move</functionname>
+        <exetype>2</exetype>
+        <functionname></functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
@@ -25,43 +25,81 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>000001000</string>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>2</string>
+            <string>///Initialize Variables
+grav = 0.2;
+hsp = 0;
+vsp = 0;
+jumpspeed = 7;
+movespeed = 4;
+</string>
           </argument>
         </arguments>
       </action>
+    </event>
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
-        <id>501</id>
-        <kind>0</kind>
-        <userelative>-1</userelative>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
         <isquestion>0</isquestion>
         <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_draw_sprite</functionname>
+        <exetype>2</exetype>
+        <functionname></functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
-            <kind>5</kind>
-            <sprite>spr_right_zombie</sprite>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>0</string>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>0</string>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>-1</string>
+            <kind>1</kind>
+            <string>//Get the player's input
+key_right = keyboard_check(vk_right);
+key_left = -keyboard_check(vk_left);
+key_jump = keyboard_check_pressed(vk_space);
+
+
+//React to inputs
+move = key_left + key_right;
+hsp = move * movespeed;
+if (vsp &lt; 10) vsp += grav;
+
+if (place_meeting(x,y+1,obj_wall))
+{
+    vsp = key_jump * -jumpspeed
+}
+
+//Set sprite
+//if(key_right){
+//    sprite_index = spr_right_zombie;
+//}
+//else
+//{
+//    sprite_index = spr_idle_zombie;
+//}
+
+//Horizontal Collision
+if (place_meeting(x+hsp,y,obj_wall))
+{
+    while(!place_meeting(x+sign(hsp),y,obj_wall))
+    {
+        x += sign(hsp);
+    }
+    hsp = 0;
+}
+x += hsp;
+
+//Vertical Collision
+if (place_meeting(x,y+vsp,obj_wall))
+{
+    while(!place_meeting(x,y+sign(vsp),obj_wall))
+    {
+        y += sign(vsp);
+    }
+    vsp = 0;
+}
+y += vsp;
+</string>
           </argument>
         </arguments>
       </action>
